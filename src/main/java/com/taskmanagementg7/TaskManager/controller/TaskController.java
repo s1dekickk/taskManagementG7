@@ -22,7 +22,6 @@ public class TaskController {
     public List<TaskDTO> getAllTasks() {
         return taskRepository.findAll()
                 .stream()
-                // Use the injected instance 'taskMapper'
                 .map(taskMapper::toDto)
                 .toList();
     }

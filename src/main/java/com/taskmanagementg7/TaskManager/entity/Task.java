@@ -10,7 +10,7 @@ public class Task {
     private Long taskId;
     private String title;
     private String description;
-    private LocalDate dueDate; // Represents the due_date
+    private LocalDate dueDate;
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
     @Enumerated(EnumType.STRING)

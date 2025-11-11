@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 
 public class User {
-    @Id // marks this as the primary key
+    @Id //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)//  auto increments the ID
     @Column(name = "user_id")
     private Long id;

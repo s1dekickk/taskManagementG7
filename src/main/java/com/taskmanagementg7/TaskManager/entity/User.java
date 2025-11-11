@@ -3,12 +3,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.*;
+import lombok.ToString;
+
 @Entity
 @Table(name = "user")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@ToString
 public class User {
     @Id //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)//  auto increments the ID

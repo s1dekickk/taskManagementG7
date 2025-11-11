@@ -1,11 +1,15 @@
 package com.taskmanagementg7.TaskManager.controller;
+import com.taskmanagementg7.TaskManager.dtos.RegisterUserRequest;
 import com.taskmanagementg7.TaskManager.dtos.UserDTO;
+import com.taskmanagementg7.TaskManager.entity.Role;
 import com.taskmanagementg7.TaskManager.mapper.UserMapper;
 import com.taskmanagementg7.TaskManager.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.mapstruct.ap.shaded.freemarker.core.UnregisteredOutputFormatException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Set;
@@ -37,8 +41,15 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toDto(user));
     }
     @PostMapping
-    public UserDTO createUser(@RequestBody UserDTO data){
-       return data;
+    public ResponseEntity<UserDTO> createUser(
+            @RequestBody RegisterUserRequest request,
+            UriComponentsBuilder uriBuilder){
+        var user = userMapper.toEntity(request);
+        user.setRole(Role.USER);
+        userRepository.save(user);
+        var userDTO = userMapper.toDto(user);
+        var uri = uriBuilder.path("/user/{id}").buildAndExpand(userDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(userDTO);
     }
 }
 

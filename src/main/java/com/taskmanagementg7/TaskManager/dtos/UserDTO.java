@@ -1,5 +1,6 @@
 package com.taskmanagementg7.TaskManager.dtos;
 
+import com.taskmanagementg7.TaskManager.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

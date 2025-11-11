@@ -15,9 +15,6 @@ public class Task {
     private TaskPriority priority;
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
-    // Relationships
-    // The "assigned_member" attribute from the schema is handled by the Assignment entity relationship.
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
     private List<Assignment> assignments;
-    // constructors setters and getters
 }

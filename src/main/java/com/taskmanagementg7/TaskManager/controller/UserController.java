@@ -1,5 +1,6 @@
 package com.taskmanagementg7.TaskManager.controller;
 import com.taskmanagementg7.TaskManager.dtos.RegisterUserRequest;
+import com.taskmanagementg7.TaskManager.dtos.UpdateUserRequest;
 import com.taskmanagementg7.TaskManager.dtos.UserDTO;
 import com.taskmanagementg7.TaskManager.entity.Role;
 import com.taskmanagementg7.TaskManager.mapper.UserMapper;
@@ -50,6 +51,26 @@ public class UserController {
         var userDTO = userMapper.toDto(user);
         var uri = uriBuilder.path("/user/{id}").buildAndExpand(userDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(userDTO);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> updateUser(
+            @PathVariable (name="id") Long id,
+            @RequestBody UpdateUserRequest request){
+            var user = userRepository.findById(id).orElse(null);
+            if (user==null){
+                return ResponseEntity.notFound().build();
+            }
+            userMapper.update(request, user);
+            userRepository.save(user);
+            return ResponseEntity.ok(userMapper.toDto(user));
+    }
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        var user = userRepository.findById(id).orElse(null);
+        if (user==null){
+            return ResponseEntity.notFound().build();
+        }
+        userRepository.delete(user);
+        return ResponseEntity.noContent().build();
     }
 }
 

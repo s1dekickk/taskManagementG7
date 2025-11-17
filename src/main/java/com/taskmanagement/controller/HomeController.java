@@ -7,6 +7,6 @@ public class HomeController {
     @RequestMapping("/")
     public String index(org.springframework.ui.Model model){
         model.addAttribute("name", "Backend Developer");
-        return "index";
+        return "index";//Use this for front end! Access via resources or templates to put front end materials here!!
     }
 }

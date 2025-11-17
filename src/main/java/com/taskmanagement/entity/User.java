@@ -15,11 +15,13 @@ public class User {
     @Id //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)//  auto increments the ID
     @Column(name = "user_id")
-    private Long id;
+    private int id;
     private String name;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-
+    public Integer getUserId() {
+        return id;
+    }
 }

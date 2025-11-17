@@ -1,5 +1,6 @@
 package com.taskmanagement.entity;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "task")
+@Data
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +42,7 @@ public class Task {
     private boolean isDeleted = false;
 
     @Column(name = "deleted_at")
-    private LocalDate deletedAt;
+    private LocalDateTime deletedAt;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

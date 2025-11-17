@@ -1,16 +1,18 @@
 package com.taskmanagement.dtos;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskDTO {
     private String title;
-    private Long taskId;
+    private Integer taskId;
     private String description;
     private String userName;
-    private Long userId;
+    private Integer userId;
     private String status;
     private String priority;
     private LocalDateTime createdAt;

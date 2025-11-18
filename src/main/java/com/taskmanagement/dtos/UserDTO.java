@@ -1,12 +1,21 @@
 package com.taskmanagement.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
+@Data
+@NoArgsConstructor
 public class UserDTO {
-    private long id;
+    @JsonProperty("user_id")
+    private Integer userId;
+    private String username;
     private String email;
-    private String name;
+    @JsonProperty("full_name")
+    private String fullName;
+    private String role;
+    @JsonProperty("created_at")
+    private LocalDateTime createdAt;
+    @JsonProperty("is_active")
+    private Boolean isActive;
 }

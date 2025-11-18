@@ -33,7 +33,7 @@ public class UserController {
       }
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id){
-        var user = userRepository.findById(id).orElse(null);
+        var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
         if(user==null){
            return ResponseEntity.notFound().build();
         }
@@ -54,7 +54,7 @@ public class UserController {
     public ResponseEntity<UserDTO> updateUser(
             @PathVariable (name="id") Long id,
             @RequestBody UpdateUserRequest request){
-            var user = userRepository.findById(id).orElse(null);
+            var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
             if (user==null){
                 return ResponseEntity.notFound().build();
             }
@@ -63,7 +63,7 @@ public class UserController {
             return ResponseEntity.ok(userMapper.toDto(user));
     }
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){
-        var user = userRepository.findById(id).orElse(null);
+        var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
         if (user==null){
             return ResponseEntity.notFound().build();
         }
@@ -74,7 +74,7 @@ public class UserController {
     public ResponseEntity<Void> changePassword(
             @PathVariable Long id,
             @RequestBody ChangePasswordRequest request){
-        var user = userRepository.findById(id).orElse(null);
+        var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
         if (user==null){
             return ResponseEntity.notFound().build();
         }

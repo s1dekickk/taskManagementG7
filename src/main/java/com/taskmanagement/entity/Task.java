@@ -52,6 +52,9 @@ public class Task {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "completed_at")
+    private LocalDateTime completedAt;
+
     // Relationships
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")

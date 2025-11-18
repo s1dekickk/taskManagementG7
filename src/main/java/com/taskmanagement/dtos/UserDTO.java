@@ -18,6 +18,4 @@ public class UserDTO {
     private LocalDateTime createdAt;
     @JsonProperty("is_active")
     private Boolean isActive;
-
-
 }

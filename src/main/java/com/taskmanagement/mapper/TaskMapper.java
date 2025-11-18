@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TaskMapper {
-    @Mapping(source = "taskId", target = "taskId")
     @Mapping(source = "createdBy.userId", target = "userId")
     @Mapping(source = "createdBy.fullName", target = "userName")
     @Mapping(target = "tagNames", expression = "java(mapTagSetToStringSet(task.getTags()))")

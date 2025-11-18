@@ -47,7 +47,7 @@ public class UserController {
         user.setRole(Role.MEMBER);
         userRepository.save(user);
         var userDTO = userMapper.toDto(user);
-        var uri = uriBuilder.path("/user/{id}").buildAndExpand(userDTO.getId()).toUri();
+        var uri = uriBuilder.path("/user/{id}").buildAndExpand(userDTO.getUserId()).toUri();
         return ResponseEntity.created(uri).body(userDTO);
     }
     @PutMapping("/{id}")

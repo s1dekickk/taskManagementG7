@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskCommentController {
     private final TaskCommentService commentService;
-    // Gets all comments for a task (including replies)
+    // gets all comments for a task (including replies)
     @GetMapping
     public ResponseEntity<List<CommentDTO>> getCommentsForTask(@PathVariable Integer taskId) {
         try {
@@ -29,10 +29,8 @@ public class TaskCommentController {
     public ResponseEntity<CommentDTO> postComment(
             @PathVariable Integer taskId,
             @RequestBody CreateCommentRequest request) {
-
         // Temporary, hardcoded user ID (will be replaced by security context)
         Integer tempUserId = 1;
-
         try {
             CommentDTO newComment = commentService.addComment(
                     taskId,

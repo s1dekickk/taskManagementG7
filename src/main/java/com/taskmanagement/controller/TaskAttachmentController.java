@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 @RestController
-@RequestMapping("/tasks/{taskId}/attachments") // Nested resource path
+@RequestMapping("/tasks/{taskId}/attachments") // nested resource path
 @AllArgsConstructor
 public class TaskAttachmentController {
     private final TaskAttachmentService attachmentService;
@@ -18,7 +18,7 @@ public class TaskAttachmentController {
     public ResponseEntity<AttachmentDTO> uploadAttachment(
             @PathVariable Integer taskId,
             @RequestParam("file") MultipartFile file) { // 'file' must match frontend's input name
-        // This is temporary, hardcoded user ID until security is implemented
+        // this is temporary, hardcoded user ID until security is implemented
         Integer tempUserId = 1;
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().build();

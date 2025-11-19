@@ -25,14 +25,12 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class TaskAttachmentService {
-
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
     private final TaskAttachmentRepository attachmentRepository;
     private final AttachmentMapper attachmentMapper;
     // Define base directory for storage (e.g., inside the project root)
     private final String UPLOAD_DIRECTORY = "uploads/task_attachments/";
-
     @Transactional
     public AttachmentDTO uploadAttachment(Integer taskId, Integer userId, MultipartFile file) throws IOException {
         // validate entities exist

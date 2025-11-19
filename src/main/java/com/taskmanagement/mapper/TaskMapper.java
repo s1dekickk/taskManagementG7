@@ -8,6 +8,7 @@ import com.taskmanagement.entity.TaskAssignment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import java.util.Collections;
 import java.util.List;
@@ -18,12 +19,9 @@ import java.util.stream.Collectors;
 public interface TaskMapper {
     @Mapping(source = "createdBy.userId", target = "userId")
     @Mapping(source = "createdBy.fullName", target = "userName")
+    @Mapping(source = "category.name", target = "categoryName")
     @Mapping(target = "tagNames", expression = "java(mapTagSetToStringSet(task.getTags()))")
     @Mapping(target = "assignedUserIds", expression = "java(mapAssignmentsToUserIds(task.getTaskAssignments()))")
-    @Mapping(target = "attachments", ignore = true)
-    @Mapping(target = "activities", ignore = true)
-    @Mapping(target = "category", ignore = true)
-    @Mapping(target = "tags", ignore = true)
     TaskDTO toDto(Task task);
     List<TaskDTO> toDtoList(List<Task> tasks);
     @Mapping(target = "taskId", ignore = true)
@@ -35,8 +33,7 @@ public interface TaskMapper {
     @Mapping(target = "activities", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "isDeleted", ignore = true)
-    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
     Task toEntity(CreateTaskRequest request);
     @Mapping(target = "taskId", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -46,9 +43,6 @@ public interface TaskMapper {
     @Mapping(target = "attachments", ignore = true)
     @Mapping(target = "activities", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "isDeleted", ignore = true)
-    @Mapping(target = "deletedAt", ignore = true)
     void update(UpdateTaskRequest request, @MappingTarget Task task);
     default Set<String> mapTagSetToStringSet(Set<Tag> tags) {
         if (tags == null) return Collections.emptySet();

@@ -17,13 +17,15 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TaskMapper {
-    @Mapping(source = "createdBy.userId", target = "userId")
-    @Mapping(source = "createdBy.fullName", target = "userName")
+    @Mapping(source = "createdBy.userId", target = "creatorId")
+    @Mapping(source = "createdBy.username", target = "creatorUsername")
     @Mapping(source = "category.name", target = "categoryName")
     @Mapping(target = "tagNames", expression = "java(mapTagSetToStringSet(task.getTags()))")
     @Mapping(target = "assignedUserIds", expression = "java(mapAssignmentsToUserIds(task.getTaskAssignments()))")
     TaskDTO toDto(Task task);
+
     List<TaskDTO> toDtoList(List<Task> tasks);
+
     @Mapping(target = "taskId", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "category", ignore = true)
@@ -35,6 +37,7 @@ public interface TaskMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     Task toEntity(CreateTaskRequest request);
+
     @Mapping(target = "taskId", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "category", ignore = true)
@@ -43,7 +46,10 @@ public interface TaskMapper {
     @Mapping(target = "attachments", ignore = true)
     @Mapping(target = "activities", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
     void update(UpdateTaskRequest request, @MappingTarget Task task);
+
     default Set<String> mapTagSetToStringSet(Set<Tag> tags) {
         if (tags == null) return Collections.emptySet();
         return tags.stream().map(Tag::getName).collect(Collectors.toSet());

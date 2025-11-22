@@ -1,89 +1,80 @@
 package com.taskmanagement.controller;
+
+import com.taskmanagement.dtos.UserDTO;
 import com.taskmanagement.dtos.ChangePasswordRequest;
 import com.taskmanagement.dtos.RegisterUserRequest;
 import com.taskmanagement.dtos.UpdateUserRequest;
-import com.taskmanagement.dtos.UserDTO;
-import com.taskmanagement.entity.Role;
 import com.taskmanagement.mapper.UserMapper;
-import com.taskmanagement.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import com.taskmanagement.service.UserService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Set;
+
 @RequestMapping("/users")
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final UserMapper userMapper;
+    // GET
     @GetMapping
     public Iterable<UserDTO> listUsers(
-            @RequestParam (required = false,defaultValue = "name") String sort
+            @RequestParam(required = false, defaultValue = "username") String sort
     ) {
-        if(!Set.of("name","email").contains(sort)){
-            sort="name";
+        if (!Set.of("username", "email", "fullName", "createdAt").contains(sort)) {
+            sort = "username";
         }
-        return userRepository.findAll(Sort.by(sort))
-                             .stream()
-                             .map(userMapper::toDto)
-                             .toList();
-      }
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id){
-        var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
-        if(user==null){
-           return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(userMapper.toDto(user));
+        return userService.listUsers(Sort.by(sort))
+                .stream()
+                .map(userMapper::toDto)
+                .toList();
     }
+
+    // GET /id
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+        // Delegation to service with better error handling
+        UserDTO userDTO = userMapper.toDto(userService.getUserById(Math.toIntExact(id)));
+        return ResponseEntity.ok(userDTO);
+    }
+
+    // POST /users
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserDTO> createUser(
-            @RequestBody RegisterUserRequest request,
-            UriComponentsBuilder uriBuilder){
-        var user = userMapper.toEntity(request);
-        user.setRole(Role.MEMBER);
-        userRepository.save(user);
+            @Valid @RequestBody RegisterUserRequest request,
+            UriComponentsBuilder uriBuilder) {
+        var user = userService.createUser(request);
         var userDTO = userMapper.toDto(user);
-        var uri = uriBuilder.path("/user/{id}").buildAndExpand(userDTO.getUserId()).toUri();
+        var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDTO.getUserId()).toUri();
         return ResponseEntity.created(uri).body(userDTO);
     }
+    // PUT /users/{id}
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(
-            @PathVariable (name="id") Long id,
-            @RequestBody UpdateUserRequest request){
-            var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
-            if (user==null){
-                return ResponseEntity.notFound().build();
-            }
-            userMapper.update(request, user);
-            userRepository.save(user);
-            return ResponseEntity.ok(userMapper.toDto(user));
+            @PathVariable("id") Long id,
+            @Valid @RequestBody UpdateUserRequest request) {
+        var user = userService.updateUser(Math.toIntExact(id), request);
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
-        var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
-        if (user==null){
-            return ResponseEntity.notFound().build();
-        }
-        userRepository.delete(user);
+    // DELETE /users/{id}
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // Set standard 204 status
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(Math.toIntExact(id));
         return ResponseEntity.noContent().build();
     }
+    // POST /users/{id}/change-password
     @PostMapping("/{id}/change-password")
     public ResponseEntity<Void> changePassword(
             @PathVariable Long id,
-            @RequestBody ChangePasswordRequest request){
-        var user = userRepository.findById(Math.toIntExact(id)).orElse(null);
-        if (user==null){
-            return ResponseEntity.notFound().build();
-        }
-        if(!user.getPassword().equals(request.getOldPassword())){
-             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-        user.setPassword(request.getNewPassword());
-        userRepository.save(user);
+            @Valid @RequestBody ChangePasswordRequest request) {
+        userService.changePassword(Math.toIntExact(id), request);
         return ResponseEntity.noContent().build();
     }
 }
-

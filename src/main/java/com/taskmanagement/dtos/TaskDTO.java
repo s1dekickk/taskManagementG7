@@ -9,19 +9,14 @@ import java.util.Set;
 @Data
 public class TaskDTO {
 
+    // System/Read-Only Fields
     @JsonProperty("task_id")
     private Integer taskId;
 
-    @JsonProperty("title")
+    // Core Task Fields
     private String title;
-
-    @JsonProperty("description")
     private String description;
-
-    @JsonProperty("status")
     private TaskStatus status;
-
-    @JsonProperty("priority")
     private TaskPriority priority;
 
     @JsonProperty("start_date")
@@ -30,29 +25,25 @@ public class TaskDTO {
     @JsonProperty("due_date")
     private LocalDateTime dueDate;
 
-    // --- Mapped Fields from TaskMapper ---
+    // Denormalized Creator Info
+    @JsonProperty("creator_id") // Renamed for accuracy
+    private Integer creatorId;
 
-    // 1. Mapped from 'createdBy.userId'
-    @JsonProperty("user_id")
-    private Integer userId;
+    @JsonProperty("creator_username")
+    private String creatorUsername;
 
-    // 2. Mapped from 'createdBy.fullName'
-    @JsonProperty("user_name")
-    private String userName;
-
-    // 3. Mapped from Tag Set -> String Set
-    @JsonProperty("tag_names")
-    private Set<String> tagNames; // <-- FIX: Add this field
-
-    // 4. Mapped from Assignment Set -> User ID Set
-    @JsonProperty("assigned_user_ids")
-    private Set<Integer> assignedUserIds; // <-- FIX: Add this field
-
-    // 5. Mapped from Category (if you added the mapping)
+    // Denormalized Relationship Info
     @JsonProperty("category_name")
     private String categoryName;
 
-    // --- System Fields ---
+    @JsonProperty("tag_names")
+    private Set<String> tagNames;
+
+    // Relational ID Sets
+    @JsonProperty("assigned_user_ids")
+    private Set<Integer> assignedUserIds;
+
+    // Timestamps
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 

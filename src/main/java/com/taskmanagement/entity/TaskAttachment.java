@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +20,7 @@ public class TaskAttachment {
     @Column(name = "attachment_id")
     private Integer attachmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id", nullable = false)
     @JsonIgnore
     private Task task;
@@ -36,10 +37,12 @@ public class TaskAttachment {
     @Column(name = "mime_type", length = 100)
     private String mimeType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uploaded_by", nullable = false)
+    @JsonIgnore
     private User uploadedBy;
 
-    @Column(name = "uploaded_at")
-    private LocalDateTime uploadedAt = LocalDateTime.now();
+    @CreationTimestamp
+    @Column(name = "uploaded_at", updatable = false)
+    private LocalDateTime uploadedAt;
 }

@@ -9,13 +9,20 @@ import java.time.LocalDateTime;
 public class UserDTO {
     @JsonProperty("user_id")
     private Integer userId;
+
     private String username;
     private String email;
+
     @JsonProperty("full_name")
     private String fullName;
+
     private String role;
+
+    private String status;
+
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
-    @JsonProperty("is_active")
-    private Boolean isActive;
+
+    @JsonProperty("updated_at")
+    private LocalDateTime updatedAt;
 }

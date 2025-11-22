@@ -20,12 +20,12 @@ public class TaskAssignment {
     @Column(name = "assignment_id")
     private Integer assignmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnore // Good for preventing recursion/bloat when listing assignments
     private Task task;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

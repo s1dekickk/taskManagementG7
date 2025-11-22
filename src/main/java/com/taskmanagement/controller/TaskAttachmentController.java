@@ -1,5 +1,5 @@
 package com.taskmanagement.controller;
-import com.taskmanagement.dtos.AttachmentDTO;
+import com.taskmanagement.dtos.task.AttachmentDTO;
 import com.taskmanagement.service.TaskAttachmentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;

@@ -1,12 +1,12 @@
 package com.taskmanagement.service;
 
-import com.taskmanagement.dtos.CreateTaskRequest;
-import com.taskmanagement.dtos.UpdateTaskRequest;
-import com.taskmanagement.entity.TaskStatus;
-import com.taskmanagement.entity.Task;
-import com.taskmanagement.entity.User;
-import com.taskmanagement.entity.Category;
-import com.taskmanagement.entity.Tag;
+import com.taskmanagement.dtos.task.CreateTaskRequest;
+import com.taskmanagement.dtos.task.UpdateTaskRequest;
+import com.taskmanagement.entity.user.TaskStatus;
+import com.taskmanagement.entity.task.Task;
+import com.taskmanagement.entity.user.User;
+import com.taskmanagement.entity.task.Category;
+import com.taskmanagement.entity.task.Tag;
 import com.taskmanagement.entity.TaskAssignment;
 import com.taskmanagement.entity.ActivityLog;
 import com.taskmanagement.entity.ActionType;

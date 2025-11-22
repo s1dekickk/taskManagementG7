@@ -1,9 +1,9 @@
 package com.taskmanagement.service;
 import com.taskmanagement.dtos.ChangePasswordRequest;
-import com.taskmanagement.dtos.RegisterUserRequest;
-import com.taskmanagement.dtos.UpdateUserRequest;
-import com.taskmanagement.entity.Role;
-import com.taskmanagement.entity.User;
+import com.taskmanagement.dtos.user.RegisterUserRequest;
+import com.taskmanagement.dtos.user.UpdateUserRequest;
+import com.taskmanagement.entity.user.Role;
+import com.taskmanagement.entity.user.User;
 import com.taskmanagement.repository.UserRepository;
 import com.taskmanagement.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +21,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    /**
-     * Creates a new user, hashes the password, and sets default status/role.
-     * @param request The registration request DTO.
-     * @return The newly created User entity.
-     */
+
     public User createUser(RegisterUserRequest request) {
         // Basic check for existing username/email should go here before mapping/saving
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -54,7 +50,6 @@ public class UserService {
     public User updateUser(Integer userId, UpdateUserRequest request) {
         User user = getUserById(userId);
 
-        // MapStruct handles property updates (only updates fields present in the request)
         userMapper.update(request, user);
 
         return userRepository.save(user);
@@ -65,11 +60,6 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    /**
-     * Changes a user's password after verifying the old password.
-     * @param userId The ID of the user.
-     * @param request The change password DTO.
-     */
     public void changePassword(Integer userId, ChangePasswordRequest request) {
         User user = getUserById(userId);
 

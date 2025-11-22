@@ -1,7 +1,7 @@
-package com.taskmanagement.dtos;
+package com.taskmanagement.dtos.task;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.taskmanagement.entity.TaskStatus;
-import com.taskmanagement.entity.TaskPriority;
+import com.taskmanagement.entity.user.TaskStatus;
+import com.taskmanagement.entity.user.TaskPriority;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.Set;

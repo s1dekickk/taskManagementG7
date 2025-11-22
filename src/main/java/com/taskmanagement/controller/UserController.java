@@ -1,9 +1,9 @@
 package com.taskmanagement.controller;
 
-import com.taskmanagement.dtos.UserDTO;
+import com.taskmanagement.dtos.user.UserDTO;
 import com.taskmanagement.dtos.ChangePasswordRequest;
-import com.taskmanagement.dtos.RegisterUserRequest;
-import com.taskmanagement.dtos.UpdateUserRequest;
+import com.taskmanagement.dtos.user.RegisterUserRequest;
+import com.taskmanagement.dtos.user.UpdateUserRequest;
 import com.taskmanagement.mapper.UserMapper;
 import com.taskmanagement.service.UserService;
 import jakarta.validation.Valid;

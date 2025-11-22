@@ -1,6 +1,6 @@
 package com.taskmanagement.controller;
-import com.taskmanagement.dtos.CommentDTO;
-import com.taskmanagement.dtos.CreateCommentRequest;
+import com.taskmanagement.dtos.comment.CommentDTO;
+import com.taskmanagement.dtos.comment.CreateCommentRequest;
 import com.taskmanagement.service.TaskCommentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.taskmanagement.dtos;
+package com.taskmanagement.dtos.comment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

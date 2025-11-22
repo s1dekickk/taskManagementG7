@@ -1,9 +1,9 @@
 package com.taskmanagement.mapper;
 
-import com.taskmanagement.dtos.CommentDTO;
-import com.taskmanagement.dtos.CommentUserDTO;
+import com.taskmanagement.dtos.comment.CommentDTO;
+import com.taskmanagement.dtos.comment.CommentUserDTO;
 import com.taskmanagement.entity.TaskComment;
-import com.taskmanagement.entity.User;
+import com.taskmanagement.entity.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")

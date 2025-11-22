@@ -1,8 +1,8 @@
 package com.taskmanagement.service;
-import com.taskmanagement.dtos.CommentDTO;
-import com.taskmanagement.entity.Task;
+import com.taskmanagement.dtos.comment.CommentDTO;
+import com.taskmanagement.entity.task.Task;
 import com.taskmanagement.entity.TaskComment;
-import com.taskmanagement.entity.User;
+import com.taskmanagement.entity.user.User;
 import com.taskmanagement.mapper.TaskCommentMapper;
 import com.taskmanagement.repository.TaskCommentRepository;
 import com.taskmanagement.repository.TaskRepository;

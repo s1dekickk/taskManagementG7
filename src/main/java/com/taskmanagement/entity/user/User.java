@@ -1,4 +1,4 @@
-package com.taskmanagement.entity;
+package com.taskmanagement.entity.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;

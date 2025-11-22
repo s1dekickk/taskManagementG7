@@ -1,8 +1,8 @@
 package com.taskmanagement.controller;
 
-import com.taskmanagement.dtos.CreateTaskRequest;
-import com.taskmanagement.dtos.TaskDTO;
-import com.taskmanagement.dtos.UpdateTaskRequest;
+import com.taskmanagement.dtos.task.CreateTaskRequest;
+import com.taskmanagement.dtos.task.TaskDTO;
+import com.taskmanagement.dtos.task.UpdateTaskRequest;
 import com.taskmanagement.mapper.TaskMapper;
 import com.taskmanagement.service.TaskService;
 import jakarta.validation.Valid;

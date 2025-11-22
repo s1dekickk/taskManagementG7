@@ -1,4 +1,5 @@
-package com.taskmanagement.entity;
+package com.taskmanagement.entity.task;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,16 +12,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "tags")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private Integer categoryId;
+    @Column(name = "tag_id")
+    private Integer tagId;
 
     @Column(nullable = false, unique = true, length = 50)
     private String name;
@@ -32,7 +33,7 @@ public class Category {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(mappedBy = "tags")
     @JsonIgnore
     private Set<Task> tasks = new HashSet<>();
 }

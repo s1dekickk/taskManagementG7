@@ -1,6 +1,6 @@
 package com.taskmanagement.mapper;
-import com.taskmanagement.dtos.AttachmentDTO;
-import com.taskmanagement.entity.TaskAttachment;
+import com.taskmanagement.dtos.task.AttachmentDTO;
+import com.taskmanagement.entity.task.TaskAttachment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")

@@ -1,4 +1,4 @@
-package com.taskmanagement.entity;
+package com.taskmanagement.entity.user;
 
 public enum TaskPriority {
     LOW,

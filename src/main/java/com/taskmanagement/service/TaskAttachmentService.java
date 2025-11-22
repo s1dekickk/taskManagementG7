@@ -1,9 +1,9 @@
 package com.taskmanagement.service;
 
-import com.taskmanagement.dtos.AttachmentDTO;
-import com.taskmanagement.entity.Task;
-import com.taskmanagement.entity.User;
-import com.taskmanagement.entity.TaskAttachment;
+import com.taskmanagement.dtos.task.AttachmentDTO;
+import com.taskmanagement.entity.task.Task;
+import com.taskmanagement.entity.user.User;
+import com.taskmanagement.entity.task.TaskAttachment;
 import com.taskmanagement.mapper.AttachmentMapper;
 import com.taskmanagement.repository.TaskAttachmentRepository;
 import com.taskmanagement.repository.TaskRepository;
@@ -11,7 +11,6 @@ import com.taskmanagement.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;

@@ -1,8 +1,8 @@
 package com.taskmanagement.mapper;
-import com.taskmanagement.dtos.RegisterUserRequest;
-import com.taskmanagement.dtos.UpdateUserRequest;
-import com.taskmanagement.dtos.UserDTO;
-import com.taskmanagement.entity.User;
+import com.taskmanagement.dtos.user.RegisterUserRequest;
+import com.taskmanagement.dtos.user.UpdateUserRequest;
+import com.taskmanagement.dtos.user.UserDTO;
+import com.taskmanagement.entity.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

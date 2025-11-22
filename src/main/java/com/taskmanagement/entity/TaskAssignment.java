@@ -1,5 +1,7 @@
 package com.taskmanagement.entity;
 
+import com.taskmanagement.entity.task.Task;
+import com.taskmanagement.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

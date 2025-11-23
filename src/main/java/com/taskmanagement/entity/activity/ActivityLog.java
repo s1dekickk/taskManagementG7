@@ -1,4 +1,4 @@
-package com.taskmanagement.entity;
+package com.taskmanagement.entity.activity;
 import com.taskmanagement.entity.task.Task;
 import com.taskmanagement.entity.user.User;
 import jakarta.persistence.*;

@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_assignments")
+@Table(name = "task_assignments", uniqueConstraints = {
+        @UniqueConstraint(name = "unique_assignment", columnNames = {"task_id", "user_id"})//prevent same user receiving same tasks
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

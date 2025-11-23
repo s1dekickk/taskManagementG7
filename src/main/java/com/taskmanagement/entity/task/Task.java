@@ -1,5 +1,6 @@
 package com.taskmanagement.entity.task;
 import com.taskmanagement.entity.*;
+import com.taskmanagement.entity.activity.ActivityLog;
 import com.taskmanagement.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,9 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "task")
+@Table(name = "tasks")
 @Data
 public class Task {
     @Id
@@ -81,4 +83,21 @@ public class Task {
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     private Set<ActivityLog> activities = new HashSet<>();
+
+    @Transient // not persisted in the database
+    public Set<User> getAssignedUsers() {
+        return this.taskAssignments.stream()
+                .map(TaskAssignment::getUser)
+                .collect(Collectors.toSet());
+    }
+
+    public void setAssignedUsers(Set<User> users) {
+        this.taskAssignments.clear();
+        if (users != null) {
+            users.forEach(user -> {
+                TaskAssignment assignment = new TaskAssignment(null, this, user, LocalDateTime.now());
+                this.taskAssignments.add(assignment);
+            });
+        }
+    }
 }

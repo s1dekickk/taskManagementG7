@@ -1,8 +1,7 @@
-package com.taskmanagement.entity;
+package com.taskmanagement.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.taskmanagement.entity.task.Task;
-import com.taskmanagement.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

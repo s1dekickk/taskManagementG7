@@ -1,8 +1,7 @@
 package com.taskmanagement.service;
-
 import com.taskmanagement.dtos.task.CreateTaskRequest;
 import com.taskmanagement.dtos.task.UpdateTaskRequest;
-import com.taskmanagement.entity.user.TaskStatus;
+import com.taskmanagement.entity.task.TaskStatus;
 import com.taskmanagement.entity.task.Task;
 import com.taskmanagement.entity.user.User;
 import com.taskmanagement.entity.task.Category;
@@ -27,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -43,7 +41,7 @@ public class TaskService {
     // from a SecurityContextHolder, but we simulate it here with a placeholder.
     private static final Integer CURRENT_USER_ID_PLACEHOLDER = 1;
 
-    private Set<User> resolveUsers(Set<Integer> userIds, String fieldName) {
+    private Set<User> resolveUsers(Set<Integer> userIds, String fieldName) {//handles potential invalid ID
         if (userIds == null || userIds.isEmpty()) return Collections.emptySet();
 
         List<User> users = userRepository.findAllById(userIds);
@@ -156,7 +154,6 @@ public class TaskService {
             task.setTaskAssignments(newAssignments);
             logTaskActivity(task, currentUser, ActionType.ASSIGNED, "Assignments changed", "Assignments updated.");
         }
-
         // save and return
         return taskRepository.save(task);
     }
@@ -177,7 +174,6 @@ public class TaskService {
         Task task = getTaskById(taskId);
         User currentUser = userRepository.findById(CURRENT_USER_ID_PLACEHOLDER)
                 .orElseThrow(() -> new EntityNotFoundException("Current user not found."));
-
         if (task.isDeleted()) {
             task.setDeleted(false);
             Task restoredTask = taskRepository.save(task);
@@ -190,20 +186,16 @@ public class TaskService {
     @Transactional
     public void deletePermanently(Integer taskId) {
         Task task = taskRepository.findById(taskId).orElse(null);
-
         if (task == null) {
             return;
         }
         if (!task.isDeleted()) {
             throw new IllegalArgumentException("Task must be soft-deleted before permanent deletion.");
         }
-
         User currentUser = userRepository.findById(CURRENT_USER_ID_PLACEHOLDER)
                 .orElseThrow(() -> new EntityNotFoundException("Current user not found."));
-
         // Log activity before deletion, as the task entity will be gone
         logTaskActivity(task, currentUser, ActionType.FILE_REMOVED, null, "Permanently deleted.");
-
         taskRepository.delete(task);
     }
 

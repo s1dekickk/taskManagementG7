@@ -6,7 +6,6 @@ import com.taskmanagement.entity.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     @Mapping(target = "status", source = "user.status")

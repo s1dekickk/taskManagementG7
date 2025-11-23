@@ -23,7 +23,7 @@ public class TaskCommentController {
             return ResponseEntity.notFound().build();
         }
     }
-    // Creates a new top level comment or a reply
+    // creates a new top level comment or a reply
     @PostMapping
     public ResponseEntity<CommentDTO> postComment(
             @PathVariable Integer taskId,
@@ -35,7 +35,7 @@ public class TaskCommentController {
                     taskId,
                     tempUserId,
                     request.getText(),
-                    request.getParentCommentId() // Will be null for top-level comments
+                    request.getParentCommentId() // will be null for top level comments
             );
             return ResponseEntity.status(HttpStatus.CREATED).body(newComment);
         } catch (EntityNotFoundException e) {

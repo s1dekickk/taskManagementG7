@@ -20,7 +20,7 @@ public class AttachmentDTO {
     private Integer uploadedById;
     @JsonProperty("uploaded_at")
     private LocalDateTime uploadedAt;
-    // This is used by the frontend to download the file
+    // this is used by the frontend to download the file
     @JsonProperty("file_url")
     private String fileUrl;
 }

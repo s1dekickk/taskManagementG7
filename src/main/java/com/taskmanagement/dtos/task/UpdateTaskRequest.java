@@ -2,8 +2,8 @@ package com.taskmanagement.dtos.task;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import com.taskmanagement.entity.user.TaskPriority;
-import com.taskmanagement.entity.user.TaskStatus;
+import com.taskmanagement.entity.task.TaskPriority;
+import com.taskmanagement.entity.task.TaskStatus;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

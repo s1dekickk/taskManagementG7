@@ -16,21 +16,18 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-
     public User createUser(RegisterUserRequest request) {
-        // Basic check for existing username/email should go here before mapping/saving
+        // Basic check for existing username/email should go here before mapping
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new IllegalArgumentException("Username is already taken.");
         }
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("Email is already registered.");
         }
-
         User user = userMapper.toEntity(request);
         user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.MEMBER);
@@ -49,9 +46,7 @@ public class UserService {
 
     public User updateUser(Integer userId, UpdateUserRequest request) {
         User user = getUserById(userId);
-
         userMapper.update(request, user);
-
         return userRepository.save(user);
     }
 
@@ -62,14 +57,11 @@ public class UserService {
 
     public void changePassword(Integer userId, ChangePasswordRequest request) {
         User user = getUserById(userId);
-
-        // 1. COMPARE old raw password with stored hash (CRITICAL SECURITY STEP)
         if (!passwordEncoder.matches(request.getOldPassword(), user.getPasswordHash())) {
-            // Throw IllegalArgumentException, which can be mapped to a 400 Bad Request
+            // Throw IllegalArgumentException
             throw new IllegalArgumentException("Incorrect old password provided.");
         }
-
-        // 2. HASH and set the new password
+        // Hash and set the new password
         user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
     }

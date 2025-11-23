@@ -25,28 +25,16 @@ public interface TaskMapper {
 
     List<TaskDTO> toDtoList(List<Task> tasks);
 
-    @Mapping(target = "taskId", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "category", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "taskAssignments", ignore = true)
-    @Mapping(target = "attachments", ignore = true)
-    @Mapping(target = "activities", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
     Task toEntity(CreateTaskRequest request);
 
-    @Mapping(target = "taskId", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "category", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "taskAssignments", ignore = true)
-    @Mapping(target = "attachments", ignore = true)
-    @Mapping(target = "activities", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
     void update(UpdateTaskRequest request, @MappingTarget Task task);
 
     default Set<String> mapTagSetToStringSet(Set<Tag> tags) {

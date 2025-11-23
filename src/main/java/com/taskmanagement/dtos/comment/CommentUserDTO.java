@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class CommentUserDTO {
-    //this hold public user info needed to comment display
+    //public user info for comment display
     @JsonProperty("user_id")
     private Integer userId;
     @JsonProperty("full_name")

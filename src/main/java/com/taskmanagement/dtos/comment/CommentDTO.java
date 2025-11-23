@@ -1,10 +1,8 @@
 package com.taskmanagement.dtos.comment;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDateTime;
-
 @Data
 @Builder
 public class CommentDTO {

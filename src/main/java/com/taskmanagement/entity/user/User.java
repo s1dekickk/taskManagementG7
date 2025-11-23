@@ -48,4 +48,6 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    @Column(name = "avatar_color")
+    private String userColor;
 }

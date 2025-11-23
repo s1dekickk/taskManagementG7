@@ -24,13 +24,12 @@ public class TaskCommentService {
         if (!taskRepository.existsById(taskId)) {
             throw new EntityNotFoundException("Task with ID " + taskId + " not found.");
         }
-        // Use the custom repository method to fetch all comments for the task, ordered correctly
+        // use the custom repository method to fetch all comments for the task and also ordered
         List<TaskComment> comments = commentRepository.findByTask_TaskIdOrderByCreatedAtAsc(taskId);
         return comments.stream()
                 .map(commentMapper::toDto)
                 .collect(Collectors.toList());
     }
-
     @Transactional
     public CommentDTO addComment(Integer taskId, Integer userId, String text, Integer parentCommentId) {
         // validate mandatory entities
@@ -38,19 +37,16 @@ public class TaskCommentService {
                 .orElseThrow(() -> new EntityNotFoundException("Task with ID " + taskId + " not found."));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + userId + " not found."));
-
         // validate parent comment for replies
         TaskComment parentComment = null;
         if (parentCommentId != null) {
             parentComment = commentRepository.findById(parentCommentId)
                     .orElseThrow(() -> new EntityNotFoundException("Parent Comment with ID " + parentCommentId + " not found."));
-
             // ensure the reply belongs to the same task (or reject the operation)
             if (!parentComment.getTask().getTaskId().equals(taskId)) {
                 throw new IllegalArgumentException("Parent comment does not belong to the specified task.");
             }
         }
-
         // create and save the new comment entity
         TaskComment newComment = new TaskComment();
         newComment.setTask(task);
@@ -59,7 +55,6 @@ public class TaskCommentService {
         newComment.setParentComment(parentComment);
         newComment.setCategory("Commented");//default
         TaskComment savedComment = commentRepository.save(newComment);
-
         // map and return
         return commentMapper.toDto(savedComment);
     }

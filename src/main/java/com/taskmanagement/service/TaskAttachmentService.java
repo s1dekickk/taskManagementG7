@@ -28,7 +28,7 @@ public class TaskAttachmentService {
     private final UserRepository userRepository;
     private final TaskAttachmentRepository attachmentRepository;
     private final AttachmentMapper attachmentMapper;
-    // Define base directory for storage (e.g., inside the project root)
+    // Define base directory for storage
     private final String UPLOAD_DIRECTORY = "uploads/task_attachments/";
     @Transactional
     public AttachmentDTO uploadAttachment(Integer taskId, Integer userId, MultipartFile file) throws IOException {
@@ -64,5 +64,20 @@ public class TaskAttachmentService {
         TaskAttachment savedAttachment = attachmentRepository.save(attachment);
         // convert to DTO and return
         return attachmentMapper.toDto(savedAttachment);
+    }
+    @Transactional
+    public TaskAttachment getAttachmentMetadata(Integer attachmentId) {
+        return attachmentRepository.findById(attachmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Attachment not found with ID: " + attachmentId));
+    }
+    @Transactional
+    public void deleteAttachment(Integer attachmentId) throws IOException {
+        TaskAttachment attachment = getAttachmentMetadata(attachmentId);
+        // delete the physical file from the disk
+        Path filePath = Paths.get(attachment.getFilePath());
+        if (Files.exists(filePath)) {
+            Files.delete(filePath);
+        }
+        attachmentRepository.delete(attachment);
     }
 }

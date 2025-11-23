@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
-
 @RestController
 @RequestMapping("/tasks")
 @RequiredArgsConstructor
@@ -31,7 +30,6 @@ public class TaskController {
         var uri = uriBuilder.path("/tasks/{id}").buildAndExpand(taskDTO.getTaskId()).toUri();
         return ResponseEntity.created(uri).body(taskDTO);
     }
-
     // Update task
     @PutMapping("/{id}")
     public ResponseEntity<TaskDTO> updateTask(
@@ -40,7 +38,6 @@ public class TaskController {
         var updatedTask = taskService.updateTask(id, request);
         return ResponseEntity.ok(taskMapper.toDto(updatedTask));
     }
-
     // Get all tasks
     @GetMapping
     public List<TaskDTO> getAllTasks(
@@ -50,37 +47,32 @@ public class TaskController {
         Sort sortBy = Sort.by(sort);
         return taskMapper.toDtoList(taskService.listTasks(sortBy));
     }
-
     // Get task by id
     @GetMapping("/{id}")
     public ResponseEntity<TaskDTO> getTaskById(@PathVariable Integer id) {
         var task = taskService.getTaskById(id);
         return ResponseEntity.ok(taskMapper.toDto(task));
     }
-
     // Get deleted tasks
     @GetMapping("/trash")
     public List<TaskDTO> listDeletedTasks() {
         // Assuming taskService has a dedicated method for this
         return taskMapper.toDtoList(taskService.listDeletedTasks());
     }
-
-    // DELETE /tasks/{id} (Soft Delete)
+    // DELETE /tasks/{id}
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> softDeleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
-
     // POST /tasks/{id}/restore
     @PostMapping("/{id}/restore")
     public ResponseEntity<TaskDTO> restoreTask(@PathVariable Integer id) {
         var restoredTask = taskService.restoreTask(id);
         return ResponseEntity.ok(taskMapper.toDto(restoredTask));
     }
-
-    // DELETE /tasks/{id}/permanent (Hard Delete)
+    // DELETE /tasks/{id}/permanent
     @DeleteMapping("/{id}/permanent")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deletePermanently(@PathVariable Integer id) {

@@ -1,7 +1,7 @@
 package com.taskmanagement.dtos.task;
 import java.time.LocalDateTime;
 import java.util.Set;
-import com.taskmanagement.entity.user.TaskPriority;
+import com.taskmanagement.entity.task.TaskPriority;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskAssignment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "assignment_id")
@@ -24,7 +23,7 @@ public class TaskAssignment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id", nullable = false)
-    @JsonIgnore // Good for preventing recursion/bloat when listing assignments
+    @JsonIgnore // Prevent recursion
     private Task task;
 
     @ManyToOne(fetch = FetchType.LAZY)

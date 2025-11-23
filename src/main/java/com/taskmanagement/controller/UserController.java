@@ -34,12 +34,11 @@ public class UserController {
                 .map(userMapper::toDto)
                 .toList();
     }
-
     // GET /id
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable int id) {
         // Delegation to service with better error handling
-        UserDTO userDTO = userMapper.toDto(userService.getUserById(Math.toIntExact(id)));
+        UserDTO userDTO = userMapper.toDto(userService.getUserById(id));
         return ResponseEntity.ok(userDTO);
     }
 
@@ -57,24 +56,24 @@ public class UserController {
     // PUT /users/{id}
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(
-            @PathVariable("id") Long id,
+            @PathVariable("id") int id,
             @Valid @RequestBody UpdateUserRequest request) {
-        var user = userService.updateUser(Math.toIntExact(id), request);
+        var user = userService.updateUser(id, request);
         return ResponseEntity.ok(userMapper.toDto(user));
     }
     // DELETE /users/{id}
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT) // Set standard 204 status
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(Math.toIntExact(id));
+    public ResponseEntity<Void> deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
     // POST /users/{id}/change-password
     @PostMapping("/{id}/change-password")
     public ResponseEntity<Void> changePassword(
-            @PathVariable Long id,
+            @PathVariable int id,
             @Valid @RequestBody ChangePasswordRequest request) {
-        userService.changePassword(Math.toIntExact(id), request);
+        userService.changePassword(id, request);
         return ResponseEntity.noContent().build();
     }
 }

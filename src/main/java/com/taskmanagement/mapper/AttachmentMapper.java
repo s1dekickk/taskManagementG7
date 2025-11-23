@@ -6,7 +6,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface AttachmentMapper {
     default String createDownloadUrl(Integer attachmentId) {
-        // This must match the structure of TaskAttachmentController download endpoint
         return "/tasks/attachments/" + attachmentId + "/download";
     }
     @Mapping(target = "taskId", source = "task.taskId")

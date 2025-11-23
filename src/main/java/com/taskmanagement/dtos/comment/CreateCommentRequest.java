@@ -8,7 +8,7 @@ public class CreateCommentRequest {
     @JsonProperty("text")
     private String text;
     @JsonProperty("parent_comment_id")
-    private Integer parentCommentId; //optional, for replies
+    private Integer parentCommentId; //for replies
     @JsonProperty("category")
     private String category;
 }
